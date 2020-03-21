@@ -23,8 +23,8 @@ entity Addresses : cuid, managed {
 }
 
 entity Postings : cuid, managed {
-    title       : String;
-    description : String;
+    title       : String @title : 'Titel';
+    description : String @title : 'Beschreibung';
     owner       : Association to one Neighbours;
     items       : Association to many Items
                       on items.posting = $self;

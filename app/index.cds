@@ -3,3 +3,4 @@
 */
 
 using from './neighbours/neighbours-service';
+using from './common';
