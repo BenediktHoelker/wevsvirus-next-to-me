@@ -1,0 +1,128 @@
+{
+    "_version": "1.8.0",
+    "sap.app": {
+        "id": "weVsVirus.nextToMe.neighbours",
+        "type": "application",
+        "title": "Meine Nachbarn",
+        "description": "",
+        "i18n": "i18n/i18n.properties",
+        "dataSources": {
+            "NeighboursService": {
+                "uri": "/neighbours/",
+                "type": "OData",
+                "settings": {
+                    "odataVersion": "4.0"
+                }
+            }
+        },
+        "-sourceTemplate": {
+            "id": "ui5template.basicSAPUI5ApplicationProject",
+            "-id": "ui5template.smartTemplate",
+            "-version": "1.40.12"
+        }
+    },
+    "sap.ui5": {
+        "dependencies": {
+            "libs": {
+                "sap.fe": {}
+            }
+        },
+        "models": {
+            "i18n": {
+                "type": "sap.ui.model.resource.ResourceModel",
+                "uri": "i18n/i18n.properties"
+            },
+            "": {
+                "dataSource": "NeighboursService",
+                "settings": {
+                    "synchronizationMode": "None",
+                    "operationMode": "Server",
+                    "autoExpandSelect": true,
+                    "earlyRequests": true,
+                    "groupProperties": {
+                        "default": {
+                            "submit": "Auto"
+                        }
+                    }
+                }
+            }
+        },
+        "routing": {
+            "routes": [
+                {
+                    "pattern": ":?query:",
+                    "name": "NeighboursList",
+                    "target": "NeighboursList"
+                },
+                {
+                    "pattern": "Neighbours({key}):?query:",
+                    "name": "NeighbourDetails",
+                    "target": "NeighbourDetails"
+                },
+                {
+                    "pattern": "Neighbours({key}/postings({key2}):?query:",
+                    "name": "PostingDetails",
+                    "target": "PostingDetails"
+                }
+            ],
+            "targets": {
+                "NeighboursList": {
+                    "type": "Component",
+                    "id": "NeighboursList",
+                    "name": "sap.fe.templates.ListReport",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Neighbours",
+                            "navigation": {
+                                "Neighbours": {
+                                    "detail": {
+                                        "route": "NeighbourDetails"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                },
+                "NeighbourDetails": {
+                    "type": "Component",
+                    "id": "NeighbourDetails",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Neighbours"
+                        }
+                    }
+                },
+                "PostingDetails": {
+                    "type": "Component",
+                    "id": "PostingDetails",
+                    "name": "sap.fe.templates.ObjectPage",
+                    "options": {
+                        "settings": {
+                            "entitySet": "Posting",
+                            "navigation": {
+                                "Projects": {
+                                    "detail": {
+                                        "route": "PostingDetails"
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        },
+        "contentDensities": {
+            "compact": true,
+            "cozy": true
+        }
+    },
+    "sap.ui": {
+        "technology": "UI5",
+        "fullWidth": false
+    },
+    "sap.fiori": {
+        "registrationIds": [],
+        "archeType": "transactional"
+    }
+}
