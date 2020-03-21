@@ -1,7 +1,7 @@
 using {NextToMeService as my} from './nextToMe-service';
 
 service NeighboursService {
-    @OData.draft.enabled
+    @odata.draft.enabled
     entity Neighbours as projection on my.Neighbours;
 
     entity Postings   as projection on my.Postings;
