@@ -6,13 +6,13 @@ using {
 } from '@sap/cds/common';
 
 entity Neighbours : cuid, managed {
-    name    : String @title : 'Name';
-    address : Association to one Addresses;
-    items   : Composition of many Items
-                  on items.owner = $self;
+    name     : String @title : 'Name';
+    address  : Association to one Addresses;
+    postings : Composition of many Postings
+                   on postings.owner = $self;
 }
 
-entity Addresses : cuid, managed  {
+entity Addresses : cuid, managed {
     name       : String  @title : 'Name';
     street     : String  @title : 'Straße';
     postalCode : String  @title : 'PLZ';
@@ -22,14 +22,16 @@ entity Addresses : cuid, managed  {
                      on neighbours.address = $self;
 }
 
-entity Postings : cuid, managed  {
-    items : Association to many Items
-                on items.posting = $self;
+entity Postings : cuid, managed {
+    title       : String;
+    description : String;
+    owner       : Association to one Neighbours;
+    items       : Association to many Items
+                      on items.posting = $self;
 }
 
 entity Items : cuid, managed {
     item     : String  @title : 'Was?';
     quantity : Integer @title : 'Welche Menge?';
     posting  : Association to one Postings;
-    owner    : Association to one Neighbours;
 }
