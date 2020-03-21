@@ -26,12 +26,12 @@ entity Postings : cuid, managed {
     title       : String @title : 'Titel';
     description : String @title : 'Beschreibung';
     owner       : Association to one Neighbours;
-    items       : Association to many Items
+    items       : Composition of many Items
                       on items.posting = $self;
 }
 
 entity Items : cuid, managed {
     item     : String  @title : 'Was?';
-    quantity : Integer @title : 'Welche Menge?';
+    quantity : Integer @title : 'Wieviel?';
     posting  : Association to one Postings;
 }

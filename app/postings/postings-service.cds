@@ -1,0 +1,1 @@
+using {NextToMeService as my} from '../../srv/nextToMe-service';
