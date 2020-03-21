@@ -16,11 +16,13 @@ entity Addresses : cuid {
     postalCode : String;
     city       : String;
     radius     : Integer;
-    neighbours : Association to many Addresses;
+    neighbours : Association to many Neighbours
+                     on neighbours.address = $self;
 }
 
 entity Postings : cuid {
-    items : Association to many Items;
+    items : Association to many Items
+                on items.posting = $self;
 }
 
 entity Items : cuid, managed {
